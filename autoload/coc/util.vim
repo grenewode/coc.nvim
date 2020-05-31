@@ -498,14 +498,17 @@ endfunction
 function! coc#util#get_data_home()
   if !empty(get(g:, 'coc_data_home', ''))
     let dir = resolve(expand(g:coc_data_home))
+    echohl MoreMsg | echom '[coc.vim] coc_data_home is set, using dir: '.dir | echohl None
   else
     if exists('$XDG_CONFIG_HOME')
       let dir = resolve($XDG_CONFIG_HOME."/coc")
+      echohl MoreMsg | echom '[coc.vim] XDG_CONFIG_HOME is set, using dir: '.dir | echohl None
     else
       if s:is_win
         let dir = resolve(expand('~/AppData/Local/coc'))
       else
         let dir = resolve(expand('~/.config/coc'))
+        echohl MoreMsg | echom '[coc.vim] coc_data_home is not set and XDG_CONFIG_HOME is not set, using dir: '.dir | echohl None
       endif
     endif
   endif
